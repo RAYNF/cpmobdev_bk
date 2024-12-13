@@ -2,10 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:mobile_inventory/data/helpers/dbhelper.dart';
-import 'package:mobile_inventory/data/models/product_models.dart';
 import 'package:mobile_inventory/data/models/productcategories_model.dart';
 import 'package:mobile_inventory/data/models/producttransaction_model.dart';
-import 'package:mobile_inventory/data/models/transaction_model.dart';
 import 'package:mobile_inventory/presentation/pages/addproduct_screen.dart';
 import 'package:mobile_inventory/presentation/pages/addtransaction_screen.dart';
 import 'package:mobile_inventory/presentation/pages/dashboard/allproduct_screen.dart';

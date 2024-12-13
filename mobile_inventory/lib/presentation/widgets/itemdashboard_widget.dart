@@ -1,9 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
-import 'package:mobile_inventory/data/models/product_models.dart';
 import 'package:mobile_inventory/data/models/productcategories_model.dart';
 
 class ItemdashboardWidget extends StatefulWidget {
@@ -56,7 +52,7 @@ class _ItemdashboardWidgetState extends State<ItemdashboardWidget> {
                     height: 5,
                   ),
                   Container(
-                    height: 50, // Tetapkan tinggi untuk Row
+                    height: 50,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -106,11 +102,7 @@ class _ItemdashboardWidgetState extends State<ItemdashboardWidget> {
             left: 20,
             child: Container(
               child: GestureDetector(
-                onTap: () {
-                  // listProductOrder.add(listProduct[index]);
-                  // cekHarga();
-                  // setState(() {});
-                },
+                onTap: () {},
                 child: Container(
                   width: 140,
                   height: 140,
@@ -121,7 +113,7 @@ class _ItemdashboardWidgetState extends State<ItemdashboardWidget> {
                   child: ClipOval(
                     child: Image.memory(
                       Base64Decoder().convert(widget.barang.gambar!),
-                      fit: BoxFit.cover, // Mengisi sepenuhnya lingkaran
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),

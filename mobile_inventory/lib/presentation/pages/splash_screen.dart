@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Center(
             child: Image.asset(
-              'assets/images/episode1.jpg',
+              'assets/images/prediction1.png',
               width: 180,
               height: 180,
               fit: BoxFit.contain,
@@ -36,14 +36,6 @@ class _SplashScreenState extends State<SplashScreen> {
           const SizedBox(
             height: 20,
           ),
-          const Text(
-            "Selamat Datang di Inventory Apps",
-            style: TextStyle(
-              color: Colors.amber,
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
-          )
         ],
       ),
     );

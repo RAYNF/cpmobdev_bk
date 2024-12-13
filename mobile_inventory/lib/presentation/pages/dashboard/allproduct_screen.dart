@@ -206,7 +206,7 @@ class _AllproductScreenState extends State<AllproductScreen> {
       ),
       body: SafeArea(
           child: Padding(
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.all(16),
         child: GridView.builder(
             scrollDirection: Axis.vertical,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
