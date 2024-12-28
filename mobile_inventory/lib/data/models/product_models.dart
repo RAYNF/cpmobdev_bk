@@ -3,7 +3,6 @@ class Product {
   String _nama = "";
   String _deskripsi = "";
   int _harga = 0;
-  // String _kategori = "";
   int _kategori = 0;
   int _stock = 0;
   String _gambar = "";
@@ -58,17 +57,6 @@ class Product {
   set setGambar(String value) {
     _gambar = value;
   }
-
-  // Map<String, dynamic> toMap() {
-  //   Map<String, dynamic> map = <String, dynamic>{};
-  //   map['nama'] = _nama;
-  //   map['deskripsi'] = _deskripsi;
-  //   map['harga'] = _harga;
-  //   map['kategori'] = _kategori;
-  //   map['stock'] = _stock;
-  //   map['gambar'] = _gambar;
-  //   return map;
-  // }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

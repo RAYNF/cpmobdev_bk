@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:mobile_inventory/data/models/productcategories_model.dart';
+import 'package:mobile_inventory/data/models/product_categories_model.dart';
 
 class ItemdashboardWidget extends StatefulWidget {
   final ProductWithCategory barang;

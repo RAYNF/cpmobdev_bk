@@ -1,9 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_inventory/data/helpers/dbhelper.dart';
 import 'package:mobile_inventory/data/models/product_models.dart';
-import 'package:mobile_inventory/data/models/productcategories_model.dart';
 import 'package:mobile_inventory/data/models/transaction_model.dart';
 
 class AddtransactionScreen extends StatefulWidget {
@@ -75,13 +73,11 @@ class _AddtransactionScreenState extends State<AddtransactionScreen> {
         print("stock saat ini ${newStock.toString()}");
       }
 
-      // await db.updateProduct(widget.product.copyWith(stock: newStock));
       final updatedProducts = Product.fromMap({
         'id': widget.product.getId,
         'nama': widget.product.getName,
         'deskripsi': widget.product.getDeskripsi,
         'harga': widget.product.getHarga,
-        // 'kategori': int.parse(kategori!.text),
         'kategori': widget.product.getKategori,
         'stock': newStock,
         'gambar': widget.product.getGambar,
@@ -93,7 +89,6 @@ class _AddtransactionScreenState extends State<AddtransactionScreen> {
         SnackBar(content: Text("Transaksi berhasil disimpan!")),
       );
 
-//bermasalah
       final productData =
           await db.getProductWithCategoryById(updatedProducts.getId);
 

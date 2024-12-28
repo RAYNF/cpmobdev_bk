@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:mobile_inventory/data/helpers/dbhelper.dart';
-import 'package:mobile_inventory/data/models/producttransaction_model.dart';
-import 'package:mobile_inventory/data/models/transaction_model.dart';
+import 'package:mobile_inventory/data/models/product_transaction_model.dart';
 import 'package:mobile_inventory/presentation/utils/date_format.dart';
 
 class AllhistoryproductScreen extends StatefulWidget {
@@ -17,25 +15,17 @@ class AllhistoryproductScreen extends StatefulWidget {
 class _AllhistoryproductScreenState extends State<AllhistoryproductScreen> {
   List<Producttransaction> listTransactions = [];
   Dbhelper db = Dbhelper();
-
-  //delete masih bermasalah
   Future<void> _getAllTransactions() async {
-    var data = await db.getAllTransactions();
+    var list = await db.getAllProdukWithTransaction();
 
-    if (data.isNotEmpty) {
-      var list = await db.getAllProdukWithTransaction();
-
-      if (list.isNotEmpty) {
-        setState(() {
-          listTransactions = list.reversed.toList();
-        });
-      } else {
-        setState(() {
-          listTransactions = [];
-        });
-      }
+    if (list.isNotEmpty) {
+      setState(() {
+        listTransactions = list.reversed.toList();
+      });
     } else {
-      listTransactions = [];
+      setState(() {
+        listTransactions = [];
+      });
     }
   }
 
@@ -57,7 +47,6 @@ class _AllhistoryproductScreenState extends State<AllhistoryproductScreen> {
           content: Text("${name} delete succes"),
         ),
       );
-      // Navigator.pushNamed(context, '/dashboard');
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -85,6 +74,7 @@ class _AllhistoryproductScreenState extends State<AllhistoryproductScreen> {
             appBar: AppBar(
               title: Text("Daftar Riwayat Transaksi"),
               centerTitle: true,
+              automaticallyImplyLeading: false,
             ),
             body: SafeArea(
               child: Padding(
@@ -101,7 +91,7 @@ class _AllhistoryproductScreenState extends State<AllhistoryproductScreen> {
                             child: Image.memory(
                               Base64Decoder().convert(
                                   listTransactions[index].getProductGambar),
-                              fit: BoxFit.cover, // Mengisi sepenuhnya lingkaran
+                              fit: BoxFit.cover,
                             ),
                           ),
                           title: Center(

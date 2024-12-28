@@ -1,7 +1,7 @@
 import 'package:mobile_inventory/data/models/kategories_model.dart';
 import 'package:mobile_inventory/data/models/product_models.dart';
-import 'package:mobile_inventory/data/models/productcategories_model.dart';
-import 'package:mobile_inventory/data/models/producttransaction_model.dart';
+import 'package:mobile_inventory/data/models/product_categories_model.dart';
+import 'package:mobile_inventory/data/models/product_transaction_model.dart';
 import 'package:mobile_inventory/data/models/transaction_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -58,15 +58,6 @@ class Dbhelper {
   }
 
   Future<void> _onCreate(Database db, int version) async {
-    // var sql =
-    //     "CREATE TABLE $tableName1($columnId INTEGER PRIMARY KEY AUTOINCREMENT, "
-    //     "$columnName TEXT,"
-    //     "$columnDeskripsi TEXT,"
-    //     "$columnHarga TEXT,"
-    //     "$columnKategori TEXT,"
-    //     "$columnGambar TEXT)";
-    // await db.execute(sql);
-
     await db.execute('''
     CREATE TABLE $tableName2(
     $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -104,57 +95,15 @@ class Dbhelper {
     return await dbClient!.insert(tableName3, transaction.toMap());
   }
 
-  //bermsalah
-
-  // Future<int?> saveTransactions(Transactions transaction) async {
-  //   var dbClient = await _db;
-  //   return await dbClient!.transaction((txn) async {
-  //     int? transactionId = await txn.insert(tableName3, transaction.toMap());
-
-  //     var productQuery = await txn.query(tableName1,
-  //         where: '$columnId = ?', whereArgs: [transaction.getProductId]);
-
-  //     if (productQuery.isNotEmpty) {
-  //       int currentStock = productQuery.first[columnStock] as int;
-
-  //       int newStock = currentStock - transaction.getProductQuantity;
-
-  //       if (newStock < 0) {
-  //         throw Exception("Stok tidak cukup untuk melakukan transaksi ini");
-  //       }
-
-  //       await txn.update(
-  //         tableName1,
-  //         {columnStock: newStock},
-  //         where: '$columnId = ?',
-  //         whereArgs: [transaction.getProductId],
-  //       );
-  //     } else {
-  //       throw Exception(
-  //           "Produk dengan ID ${transaction.getProductId} tidak ditemukan");
-  //     }
-
-  //     return transactionId;
-  //   });
-  // }
-
   Future<List<Transactions>> getAllTransactions() async {
     var dbClient = await _db;
     var result = await dbClient!.query(tableName3);
     return result.map((results) => Transactions.fromMap(results)).toList();
   }
 
-  // Future<List<Producttransaction>> getTransactionProductById(int id) async {
-  //   var dbclient = await _db;
-  //   var products = await dbclient!.query(tableName3,
-  //       where: '$columnProductIdTransaction = ?', whereArgs: [id]);
-  //   return products.map((todo) => Producttransaction.fromMap(todo)).toList();
-  // }
-
   Future<List<Producttransaction>> getTransactionProductById(int id) async {
     var dbClient = await _db;
 
-    // Menggunakan raw SQL query dengan LEFT JOIN dan WHERE untuk filter berdasarkan id
     var result = await dbClient!.rawQuery('''
     SELECT 
       $tableName3.$columnId AS product_id,
@@ -163,13 +112,12 @@ class Dbhelper {
       $tableName3.$columnProductDateTransaction AS product_transaction,
       $tableName3.$columnProductTypeTransaction AS product_type,
       $tableName1.$columnGambar AS product_gambar
-    FROM $tableName1
-    LEFT JOIN $tableName3
-    ON $tableName1.$columnKategori = $tableName3.$columnProductIdTransaction
+    FROM $tableName3
+    LEFT JOIN $tableName1
+    ON $tableName1.$columnId = $tableName3.$columnProductIdTransaction
     WHERE $tableName3.$columnProductIdTransaction = ?
-  ''', [id]); // Parameter id
+  ''', [id]);
 
-    // Mengembalikan hasil query dalam bentuk list of Producttransaction
     return result.map((map) => Producttransaction.fromMap(map)).toList();
   }
 
@@ -189,11 +137,10 @@ class Dbhelper {
       $tableName3.$columnProductDateTransaction AS product_transaction,
       $tableName3.$columnProductTypeTransaction AS product_type,
       $tableName1.$columnGambar AS product_gambar
-    FROM $tableName1 LEFT JOIN $tableName3
-    ON $tableName1.$columnKategori = $tableName3.$columnProductIdTransaction
+    FROM $tableName3 LEFT JOIN $tableName1
+    ON $tableName1.$columnId = $tableName3.$columnProductIdTransaction
   ''');
 
-    // Konversi setiap hasil query ke dalam model ProductWithCategory
     return result.map((map) => Producttransaction.fromMap(map)).toList();
   }
 
@@ -226,19 +173,6 @@ class Dbhelper {
     return await dbClient!.insert(tableName1, product.toMap());
   }
 
-  // Future<List<Product>> getAllProduk() async {
-  //   var dbClient = await _db;
-  //   var result = await dbClient!.query(tableName1, columns: [
-  //     columnId,
-  //     columnName,
-  //     columnDeskripsi,
-  //     columnHarga,
-  //     columnKategori,
-  //     columnGambar
-  //   ]);
-  //   return result.map((results) => Product.fromMap(results)).toList();
-  // }
-
   Future<List<ProductWithCategory>> getAllProdukWithKategoriName() async {
     var dbClient = await _db;
 
@@ -256,7 +190,6 @@ class Dbhelper {
     ON $tableName1.$columnKategori = $tableName2.$columnId
   ''');
 
-    // Konversi setiap hasil query ke dalam model ProductWithCategory
     return result.map((map) => ProductWithCategory.fromMap(map)).toList();
   }
 

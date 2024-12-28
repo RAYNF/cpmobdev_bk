@@ -3,8 +3,6 @@ class Transactions {
   int _productId = 0;
   int _productQuantity = 0;
   int _productDate = 0;
-  // String _kategori = "";
-
   String _productType = "";
   String? gambar;
 

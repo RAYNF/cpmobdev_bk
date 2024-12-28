@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_inventory/data/helpers/dbhelper.dart';
 import 'package:mobile_inventory/data/models/kategories_model.dart';
-import 'package:mobile_inventory/presentation/pages/addcategori_screen.dart';
+import 'package:mobile_inventory/presentation/pages/add_categori_screen.dart';
 
 class AllkategoriScreen extends StatefulWidget {
   const AllkategoriScreen({super.key});
@@ -59,6 +59,11 @@ class _AllKategoriScreenState extends State<AllkategoriScreen> {
         onPressed: () {
           Navigator.pushNamed(context, '/addkategori');
         },
+      ),
+      appBar: AppBar(
+        title: Text("Daftar Kategori"),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: SafeArea(
           child: Padding(

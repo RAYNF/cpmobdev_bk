@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_inventory/presentation/pages/addcategori_screen.dart';
-import 'package:mobile_inventory/presentation/pages/addproduct_screen.dart';
+import 'package:mobile_inventory/presentation/pages/add_categori_screen.dart';
+import 'package:mobile_inventory/presentation/pages/add_product_screen.dart';
 import 'package:mobile_inventory/presentation/pages/dashboard_screen.dart';
-import 'package:mobile_inventory/presentation/pages/detailproduct_screen.dart';
+import 'package:mobile_inventory/presentation/pages/detail_product_screen.dart';
 import 'package:mobile_inventory/presentation/pages/splash_screen.dart';
 
 void main() {

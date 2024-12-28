@@ -1,12 +1,10 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:mobile_inventory/data/helpers/dbhelper.dart';
 import 'package:mobile_inventory/data/models/productcategories_model.dart';
-import 'package:mobile_inventory/data/models/producttransaction_model.dart';
-import 'package:mobile_inventory/presentation/pages/addproduct_screen.dart';
-import 'package:mobile_inventory/presentation/pages/addtransaction_screen.dart';
-import 'package:mobile_inventory/presentation/pages/dashboard/allproduct_screen.dart';
+import 'package:mobile_inventory/data/models/product_transaction_model.dart';
+import 'package:mobile_inventory/presentation/pages/add_product_screen.dart';
+import 'package:mobile_inventory/presentation/pages/add_transaction_screen.dart';
 import 'package:mobile_inventory/presentation/pages/dashboard_screen.dart';
 import 'package:mobile_inventory/presentation/utils/date_format.dart';
 
@@ -24,22 +22,15 @@ class _DetailproductScreenState extends State<DetailproductScreen> {
   List<Producttransaction> listTransactions = [];
 
   Future<void> _getAllTransactionsByProductId(int productId) async {
-    var data = await db.getAllTransactions();
-
-    if (data.isNotEmpty) {
-      var list = await db.getTransactionProductById(productId);
-
-      if (list.isNotEmpty) {
-        setState(() {
-          listTransactions = list.reversed.toList();
-        });
-      } else {
-        setState(() {
-          listTransactions = [];
-        });
-      }
+    var list = await db.getTransactionProductById(productId);
+    if (list.isNotEmpty) {
+      setState(() {
+        listTransactions = list.reversed.toList();
+      });
     } else {
-      listTransactions = [];
+      setState(() {
+        listTransactions = [];
+      });
     }
   }
 
@@ -61,7 +52,6 @@ class _DetailproductScreenState extends State<DetailproductScreen> {
           content: Text("${name} delete succes"),
         ),
       );
-      // Navigator.pushNamed(context, '/dashboard');
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -115,17 +105,6 @@ class _DetailproductScreenState extends State<DetailproductScreen> {
         actions: [
           IconButton(
             onPressed: () async {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) {
-              //       return AddproductScreen(
-              //         produk: product,
-              //       );
-              //     },
-              //   ),
-              // );
-
               final db = Dbhelper();
               try {
                 final productData = await db.getProductById(product.id!);
@@ -176,19 +155,14 @@ class _DetailproductScreenState extends State<DetailproductScreen> {
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors
-                      .white, // Anda bisa mengganti warna sesuai kebutuhan
-                  borderRadius:
-                      BorderRadius.circular(10), // Jika ingin sudut melengkung
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black
-                          .withOpacity(0.1), // Warna bayangan dengan opasitas
-                      offset: Offset(
-                          0, 4), // Posisi bayangan (horizontal, vertical)
-                      blurRadius: 10, // Membuat bayangan lebih lembut
-                      spreadRadius:
-                          2, // Menentukan seberapa besar bayangan menyebar
+                      color: Colors.black.withOpacity(0.1),
+                      offset: Offset(0, 4),
+                      blurRadius: 10,
+                      spreadRadius: 2,
                     ),
                   ],
                 ),
@@ -200,7 +174,7 @@ class _DetailproductScreenState extends State<DetailproductScreen> {
                       SizedBox(
                         height: 10,
                       ),
-                      Text("Nama Product : ${product.nama!}"),
+                      Text("Harga Product  : ${product.harga.toString()}"),
                       SizedBox(
                         height: 16,
                       ),
@@ -212,7 +186,7 @@ class _DetailproductScreenState extends State<DetailproductScreen> {
                       SizedBox(
                         height: 16,
                       ),
-                      Text("Harga Product  : ${product.harga.toString()}"),
+                      Text("Nama Product : ${product.nama!}"),
                       SizedBox(
                         height: 16,
                       ),
@@ -230,8 +204,7 @@ class _DetailproductScreenState extends State<DetailproductScreen> {
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors
-                      .white, // Anda bisa mengganti warna sesuai kebutuhan
+                  color: Colors.white,
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
@@ -270,17 +243,6 @@ class _DetailproductScreenState extends State<DetailproductScreen> {
                                     return Column(
                                       children: [
                                         ListTile(
-                                          // leading: Container(
-                                          //   width: 90,
-                                          //   height: 90,
-                                          //   child: Image.memory(
-                                          //     Base64Decoder().convert(
-                                          //         listTransactions[index]
-                                          //             .getProductGambar),
-                                          //     fit: BoxFit
-                                          //         .cover, // Mengisi sepenuhnya lingkaran
-                                          //   ),
-                                          // ),
                                           title: Center(
                                             child: Text(listTransactions[index]
                                                 .getProductType),
@@ -313,14 +275,7 @@ class _DetailproductScreenState extends State<DetailproductScreen> {
                                             ],
                                           ),
                                           trailing: IconButton(
-                                            onPressed: () {
-                                              // deleteTransaction(
-                                              //     listTransactions[index].getId,
-                                              //     listTransactions[index]
-                                              //         .getProductName);
-
-                                              // print(listTransactions[index].getId);
-                                            },
+                                            onPressed: () {},
                                             icon: Icon(Icons.remove),
                                           ),
                                         ),
@@ -344,9 +299,7 @@ class _DetailproductScreenState extends State<DetailproductScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final db = Dbhelper();
-
           final productData = await db.getProductById(product.id!);
-
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return AddtransactionScreen(product: productData);
           }));

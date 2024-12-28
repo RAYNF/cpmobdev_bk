@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_inventory/presentation/pages/dashboard/allKategori_screen.dart';
-import 'package:mobile_inventory/presentation/pages/dashboard/allhistoryproduct_screen.dart';
-import 'package:mobile_inventory/presentation/pages/dashboard/allproduct_screen.dart';
+import 'package:mobile_inventory/presentation/pages/dashboard/all_kategori_screen.dart';
+import 'package:mobile_inventory/presentation/pages/dashboard/all_history_product_screen.dart';
+import 'package:mobile_inventory/presentation/pages/dashboard/all_product_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
-
   static const routeName = '/dashboard';
-
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
